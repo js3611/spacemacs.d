@@ -23,7 +23,8 @@ values."
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
-     auto-completion
+     (auto-completion :variables
+                      auto-completion-enable-snippets-in-popup t)
      better-defaults
      emacs-lisp
      git
@@ -49,7 +50,8 @@ values."
    dotspacemacs-additional-packages
    '(flycheck-package
      helm-flycheck
-     help-fns+)
+     help-fns+
+     )
    
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
@@ -105,8 +107,8 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(;;monokaikai
-                         molokai
+   dotspacemacs-themes '(molokai
+                         monokai
                          solarized-dark
                          solarized-light
                          spacemacs-dark
@@ -264,12 +266,12 @@ you should place your code here."
   ;; Use Emacs terminfo, not system terminfo
   (setq system-uses-terminfo nil)
 
-  (let ((path (shell-command-to-string ". ~/.profile; echo -n $PATH")))
-    (setenv "PATH" path)
-    (setq exec-path 
-          (append
-           (split-string-and-unquote path ":")
-           exec-path)))
+  ;; (let ((path (shell-command-to-string ". ~/.profile; echo -n $PATH")))
+  ;;   (setenv "PATH" path)
+  ;;   (setq exec-path 
+  ;;         (append
+  ;;          (split-string-and-unquote path ":")
+  ;;          exec-path)))
 
   ;; Add PYTHONPATH defined in .profile
   (let ((path (shell-command-to-string ". ~/.profile; echo -n $PYTHONPATH")))
@@ -279,41 +281,37 @@ you should place your code here."
   (if (display-graphic-p) 
       nil (load-theme 'monokai))
 
-  ;; key binding for code folding using hs-minor-mode
-  (defun toggle-selective-display (column)
-    (interactive "P")
-    (set-selective-display
-     (or column
-         (unless selective-display
-           (1+ (current-column))))))
+  ;; hideshow
+  (use-package hideshow
+    :bind (("s-[" . hs-hide-block)
+           ("s-]" . hs-show-block)
+           ("s-{" . hs-hide-all)
+           ("s-}" . hs-show-all)
+           ("s-\\" . hs-toggle-hiding)
+           ("s-#" . hs-toggle-hiding))
+    ;; :if (string-equal system-type "gnu/linux")
+    ;; :bind ("s-#" . hs-toggle-hiding)
+    )
 
-  (defun toggle-hiding (column)
-    (interactive "P")
-    (if hs-minor-mode
-        (if (condition-case nil
-                (hs-toggle-hiding)
-              (error t))
-            (hs-show-all))
-      (toggle-selective-display column)))
+  ;; (if (string-equal system-type "darwin")
+  ;;     (global-set-key (kbd "s-\\") 'hs-toggle-hiding)
+  ;;   (global-set-key (kbd "s-#") 'hs-toggle-hiding))
 
-  (load-library "hideshow")
-  (global-set-key (kbd "s-\]") 'hs-show-block)
-  (global-set-key (kbd "s-\[") 'hs-hide-block)
-  (global-set-key (kbd "s-\}") 'hs-show-all)
-  (global-set-key (kbd "s-\{") 'hs-hide-all)
-  (global-set-key (kbd "s-\\") 'toggle-hiding)
+  (use-package dired
+    :init
+    (setq dired-recursive-copies (quote always)) ; “always” means no asking
+    (setq dired-recursive-deletes (quote top)) ; “top” means ask once
+    (setq dired-dwim-target t))
 
-  ;; ??
-  (setq enable-remote-dir-locals t)
+  (use-package tramp
+    :init
+    (setq enable-remote-dir-locals t)
+    (add-to-list 'tramp-remote-path "/home/js3611/anaconda2/bin")
+    (add-to-list 'tramp-remote-path "/vol/bitbucket/js3611/anaconda2/bin"))
 
-  ;; Update files automatically when they are changed
-  (global-auto-revert-mode t)
-
-  ;; Latex hooks
-  (add-hook 'doc-view-mode-hook 'auto-revert-mode)
-
-  ;; dired-hook
-  ;;(add-hook 'dired-mode-hook 'deer)
+  (use-package doc-view
+    :init
+    (add-hook 'doc-view-mode-hook 'auto-revert-mode))
 
   )
 
