@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: import_lasagne
+# key:  il
+# --
+import lasagne
+$0

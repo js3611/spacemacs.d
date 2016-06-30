@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: import_theano
+# key:  it
+# --
+import theano
+import theano.tensor as T
+$0

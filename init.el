@@ -313,6 +313,7 @@ you should place your code here."
     :init
     (add-hook 'doc-view-mode-hook 'auto-revert-mode))
 
+  ;; end 
   )
 
 
