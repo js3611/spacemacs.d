@@ -1,0 +1,86 @@
+# -*- mode: snippet -*-
+# name: load_template_section_page
+# key: load_template_section_page
+# --
+\documentclass[crop=false]{standalone}
+\usepackage[subpreambles=true]{standalone}
+
+% If this file is compiled on its own, turn it into a main body
+\ifstandalone
+\usepackage[a4paper, total={5.5in, 9in}]{geometry}
+\fi
+
+% misc
+\usepackage{import}
+\usepackage{float}
+\usepackage{blindtext}
+
+% Maths
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+
+\usepackage{natbib}
+
+
+% Graphics
+\usepackage{graphicx}
+\usepackage{rotating}
+\graphicspath{{images/}{../images/}}
+
+% Hyperlinks
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    pdftitle={Literature Survey},
+    bookmarks=true,
+}
+
+
+%% Define commands here. ifdefined is needed if loaded from the main file
+\ifdefined\haty
+\else
+\providecommand{\haty}{\hat{y}}       
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+\DeclarePairedDelimiter{\floor}{\lfloor}{\rfloor}
+\fi
+
+%% Custom functions
+\providecommand{\mb}[1]{\mathbf{#1}}
+\providecommand{\mbx}{\mb{x}}
+\providecommand{\inR}[1]{\in \mathbb{R}^{#1}}
+
+
+\begin{document}
+
+
+%% load bibtex if this is the only file being compiled
+\ifstandalone
+\bibliographystyle{plain}
+%\bibliography{refs}
+\bibliography{../../../../Dropbox/notes/library}
+\fi
+
+\end{document}
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: t
+%%% End: 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,78 @@
+# -*- mode: snippet -*-
+# name: latex_template
+# key: load_template_section_main
+# --
+\documentclass{article}
+\usepackage[a4paper, total={5.5in, 9in}]{geometry}
+
+% For sectioning
+\usepackage[subpreambles=true]{standalone}
+
+% Font
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+
+% Mathematics
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+% For pictures
+\usepackage{float}
+\usepackage{graphicx}
+
+% Misc
+\usepackage{import}
+\usepackage{natbib}
+
+% Hyperrefs for link, bibliography, etc. This needs to be loaded as last?
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    pdftitle={Literature Survey},
+    bookmarks=true,
+}
+
+%% Insert Commands here
+\providecommand{\mb}[1]{\mathbf{#1}}
+\providecommand{\mbx}{\mb{x}}
+\providecommand{\inR}[1]{\in \mathbb{R}^{#1}}
+
+
+\title{ISO \\ Cross Modality Synthesis}
+\author{Jo Schlemper}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+\newpage
+
+\tableofcontents
+\thispagestyle{empty}
+
+\newpage
+
+% Insert pages as follows. load section yas by load_section_template
+
+% \section{Short Introduction}
+% \import{sections/}{introduction}
+
+% \section{Conclusion}
+% \import{sections/}{conclusion}
+
+
+\bibliographystyle{plain}
+%\bibliography{refs}
+\bibliography{../../../Dropbox/notes/library}
+
+
+\end{document}
+% need this for emacs latex (?)
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: t
+%%% End: 

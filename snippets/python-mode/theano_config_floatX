@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: theano_config_floatX
+# key: tfx
+# --
+theano.config.floatX

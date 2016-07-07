@@ -301,7 +301,8 @@ you should place your code here."
     :init
     (setq dired-recursive-copies (quote always)) ; “always” means no asking
     (setq dired-recursive-deletes (quote top)) ; “top” means ask once
-    (setq dired-dwim-target t))
+    (setq dired-dwim-target t)
+    (setq dired-listing-switches "-alh"))
 
   (use-package tramp
     :init
