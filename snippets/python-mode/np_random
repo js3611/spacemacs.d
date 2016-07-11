@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: np.random
+# key: nr
+# --
+${1:var} = np.random.random(size=(${2:args}))$0
