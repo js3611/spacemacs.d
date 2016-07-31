@@ -314,7 +314,13 @@ you should place your code here."
     :init
     (add-hook 'doc-view-mode-hook 'auto-revert-mode))
 
-  ;; end 
+  ;; neotree hide hidden files
+  (setq neo-show-hidden-files nil)
+  ;; end
+
+  ;; So that RefTeX finds my bibliography
+  (setq reftex-default-bibliography '("~/Dropbox/notes/library.bib"))
+
   )
 
 
