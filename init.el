@@ -320,8 +320,20 @@ you should place your code here."
 
   ;; So that RefTeX finds my bibliography
   (setq reftex-default-bibliography '("~/Dropbox/notes/library.bib"))
+  (setq TeX-parse-self t) ; Enable parse on load.
+  (setq TeX-auto-save t) ; Enable parse on save.
 
+  ;;http://tex.stackexchange.com/questions/236329/auctexs-c-c-c-c-issue-with-latexmk
+  (add-hook 'LaTeX-mode-hook (lambda ()
+                               (push
+                                '("latexmk" "latexmk -pdf %s" TeX-run-TeX nil t
+                                  :help "Run latexmk on file")
+                                TeX-command-list)))
+  (add-hook 'TeX-mode-hook '(lambda () (setq TeX-command-default "latexmk")))
+  (add-to-list 'exec-path "/Library/TeX/texbin/")
   )
+
+  
 
 
 
