@@ -15,6 +15,7 @@
 % Mathematics
 \usepackage{amsmath}
 \usepackage{amssymb}
+\usepackage{dsfont}
 
 % For pictures
 \usepackage{float}
@@ -41,8 +42,8 @@
 \providecommand{\inR}[1]{\in \mathbb{R}^{#1}}
 
 
-\title{ISO \\ Cross Modality Synthesis}
-\author{Jo Schlemper}
+\title{${1:title}}
+\author{${2:name}}
 \date{\today}
 
 \begin{document}

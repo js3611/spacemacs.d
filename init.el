@@ -370,6 +370,7 @@ you should place your code here."
  '(magit-diff-use-overlays nil)
  '(pos-tip-background-color "#A6E22E")
  '(pos-tip-foreground-color "#272822")
+ '(send-mail-function (quote mailclient-send-it))
  '(vc-annotate-background nil)
  '(vc-annotate-color-map
    (quote
