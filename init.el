@@ -41,6 +41,7 @@ values."
      themes-megapack
      ibuffer
      gtags
+     extra-langs
      ;;ranger
      )
    ;; List of additional packages that will be installed without being
@@ -268,7 +269,7 @@ you should place your code here."
 
   ;; (let ((path (shell-command-to-string ". ~/.profile; echo -n $PATH")))
   ;;   (setenv "PATH" path)
-  ;;   (setq exec-path 
+  ;;   (setq exec-path
   ;;         (append
   ;;          (split-string-and-unquote path ":")
   ;;          exec-path)))
@@ -278,7 +279,7 @@ you should place your code here."
     (setenv "PYTHONPATH" path))
 
   ;; theme (zenburn in terminal, solarized otherwise)
-  (if (display-graphic-p) 
+  (if (display-graphic-p)
       nil (load-theme 'monokai))
 
   ;; hideshow
@@ -293,10 +294,17 @@ you should place your code here."
     ;; :bind ("s-#" . hs-toggle-hiding)
     )
 
+  ;; ace-window
+  (global-set-key (kbd "M-p") 'ace-window)
+  (global-set-key (kbd "C-x o") 'avy-goto-line)
+
+  ;; (global-set-key (kbd "M-S-p") 'avy-goto-line)
+
   ;; (if (string-equal system-type "darwin")
   ;;     (global-set-key (kbd "s-\\") 'hs-toggle-hiding)
   ;;   (global-set-key (kbd "s-#") 'hs-toggle-hiding))
 
+  ;; dired
   (use-package dired
     :init
     (setq dired-recursive-copies (quote always)) ; “always” means no asking
@@ -304,21 +312,31 @@ you should place your code here."
     (setq dired-dwim-target t)
     (setq dired-listing-switches "-alh"))
 
+  ;; Tramp
   (use-package tramp
     :init
     (setq enable-remote-dir-locals t)
+    (add-to-list 'tramp-remote-path "/home/js3611")
     (add-to-list 'tramp-remote-path "/home/js3611/anaconda2/bin")
+    (add-to-list 'tramp-remote-path "/vol/bitbucket/js3611")
+    (add-to-list 'tramp-remote-path "/homes/js3611")
     (add-to-list 'tramp-remote-path "/vol/bitbucket/js3611/anaconda2/bin"))
 
+  ;; ??
   (use-package doc-view
     :init
     (add-hook 'doc-view-mode-hook 'auto-revert-mode))
 
-  ;; neotree hide hidden files
+  ;; neotree
   (setq neo-show-hidden-files nil)
-  ;; end
 
-  ;; So that RefTeX finds my bibliography
+  ;; active Babel languages
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((python . t)
+     ))
+
+  ;; LaTeX
   (setq reftex-default-bibliography '("~/Dropbox/notes/library.bib"))
   (setq TeX-parse-self t) ; Enable parse on load.
   (setq TeX-auto-save t) ; Enable parse on save.
@@ -333,7 +351,7 @@ you should place your code here."
   (add-to-list 'exec-path "/Library/TeX/texbin/")
   )
 
-  
+  ;; C-x o = window mode to get used to item
 
 
 
@@ -353,8 +371,8 @@ you should place your code here."
  '(custom-enabled-themes (quote (sanityinc-solarized-dark)))
  '(custom-safe-themes
    (quote
-    ("6df30cfb75df80e5808ac1557d5cc728746c8dbc9bc726de35b15180fa6e0ad9" "1bacdd5d24f187f273f488a23c977f26452dffbc82d4ac57250aa041f14159da" "66132890ee1f884b4f8e901f0c61c5ed078809626a547dbefbb201f900d03fd8" "4aee8551b53a43a883cb0b7f3255d6859d766b6c5e14bcb01bed572fcbef4328" "bb08c73af94ee74453c90422485b29e5643b73b05e8de029a6909af6a3fb3f58" default)))
- '(fci-rule-color "#eee8d5" t)
+    ("b571f92c9bfaf4a28cb64ae4b4cdbda95241cd62cf07d942be44dc8f46c491f4" "6df30cfb75df80e5808ac1557d5cc728746c8dbc9bc726de35b15180fa6e0ad9" "1bacdd5d24f187f273f488a23c977f26452dffbc82d4ac57250aa041f14159da" "66132890ee1f884b4f8e901f0c61c5ed078809626a547dbefbb201f900d03fd8" "4aee8551b53a43a883cb0b7f3255d6859d766b6c5e14bcb01bed572fcbef4328" "bb08c73af94ee74453c90422485b29e5643b73b05e8de029a6909af6a3fb3f58" default)))
+ '(fci-rule-color "#eee8d5")
  '(frame-background-mode (quote dark))
  '(highlight-changes-colors (quote ("#FD5FF0" "#AE81FF")))
  '(highlight-tail-colors
