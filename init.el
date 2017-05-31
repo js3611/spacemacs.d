@@ -18,6 +18,10 @@ values."
    ;; of a list then all discovered layers will be installed.
    dotspacemacs-configuration-layers
    '(
+     csv
+     javascript
+     react
+     html
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
@@ -42,6 +46,7 @@ values."
      ibuffer
      gtags
      extra-langs
+     ivy
      ;;ranger
      )
    ;; List of additional packages that will be installed without being
@@ -121,10 +126,10 @@ values."
    ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
    ;; size to make separators look not too crappy.
    dotspacemacs-default-font '("Source Code Pro"
-                               :size 10
+                               :size 11
                                :weight normal
                                :width normal
-                               :powerline-scale 1.1)
+                               :powerline-scale .9)
    ;; The leader key
    dotspacemacs-leader-key "SPC"
    ;; The leader key accessible in `emacs state' and `insert state'
@@ -310,7 +315,9 @@ you should place your code here."
     (setq dired-recursive-copies (quote always)) ; “always” means no asking
     (setq dired-recursive-deletes (quote top)) ; “top” means ask once
     (setq dired-dwim-target t)
-    (setq dired-listing-switches "-alh"))
+    (setq dired-listing-switches "-alh")
+    ;;(setq dired-listing-switches "-laGh1v --group-directories-first")
+    )
 
   ;; Tramp
   (use-package tramp
@@ -322,6 +329,11 @@ you should place your code here."
     (add-to-list 'tramp-remote-path "/homes/js3611")
     (add-to-list 'tramp-remote-path "/vol/bitbucket/js3611/anaconda2/bin"))
 
+  ;; Optimize Tramp
+  ;; Disable Projectile mode https://emacs.stackexchange.com/questions/17543/tramp-mode-is-much-slower-than-using-terminal-to-ssh
+  (setq projectile-mode-line "Projectile")
+  (setq tramp-auto-save-directory "/tmp")
+
   ;; ??
   (use-package doc-view
     :init
@@ -329,6 +341,10 @@ you should place your code here."
 
   ;; neotree
   (setq neo-show-hidden-files nil)
+
+  ;; org-mode
+  (setq org-mode-actual-width 600)
+
 
   ;; active Babel languages
   (org-babel-do-load-languages
@@ -349,6 +365,8 @@ you should place your code here."
                                 TeX-command-list)))
   (add-hook 'TeX-mode-hook '(lambda () (setq TeX-command-default "latexmk")))
   (add-to-list 'exec-path "/Library/TeX/texbin/")
+
+
   )
 
   ;; C-x o = window mode to get used to item
@@ -365,14 +383,13 @@ you should place your code here."
  ;; If there is more than one, they won't work right.
  '(ansi-color-faces-vector
    [default bold shadow italic underline bold bold-italic bold])
- '(ansi-color-names-vector
-   (vector "#657b83" "#dc322f" "#859900" "#b58900" "#268bd2" "#d33682" "#2aa198" "#073642"))
  '(compilation-message-face (quote default))
  '(custom-enabled-themes (quote (sanityinc-solarized-dark)))
  '(custom-safe-themes
    (quote
-    ("b571f92c9bfaf4a28cb64ae4b4cdbda95241cd62cf07d942be44dc8f46c491f4" "6df30cfb75df80e5808ac1557d5cc728746c8dbc9bc726de35b15180fa6e0ad9" "1bacdd5d24f187f273f488a23c977f26452dffbc82d4ac57250aa041f14159da" "66132890ee1f884b4f8e901f0c61c5ed078809626a547dbefbb201f900d03fd8" "4aee8551b53a43a883cb0b7f3255d6859d766b6c5e14bcb01bed572fcbef4328" "bb08c73af94ee74453c90422485b29e5643b73b05e8de029a6909af6a3fb3f58" default)))
- '(fci-rule-color "#eee8d5")
+    ("f78de13274781fbb6b01afd43327a4535438ebaeec91d93ebdbba1e3fba34d3c" "b571f92c9bfaf4a28cb64ae4b4cdbda95241cd62cf07d942be44dc8f46c491f4" "6df30cfb75df80e5808ac1557d5cc728746c8dbc9bc726de35b15180fa6e0ad9" "1bacdd5d24f187f273f488a23c977f26452dffbc82d4ac57250aa041f14159da" "66132890ee1f884b4f8e901f0c61c5ed078809626a547dbefbb201f900d03fd8" "4aee8551b53a43a883cb0b7f3255d6859d766b6c5e14bcb01bed572fcbef4328" "bb08c73af94ee74453c90422485b29e5643b73b05e8de029a6909af6a3fb3f58" default)))
+ '(evil-want-Y-yank-to-eol t)
+ '(fci-rule-color "#eee8d5" t)
  '(frame-background-mode (quote dark))
  '(highlight-changes-colors (quote ("#FD5FF0" "#AE81FF")))
  '(highlight-tail-colors
@@ -386,6 +403,10 @@ you should place your code here."
      ("#F309DF" . 85)
      ("#49483E" . 100))))
  '(magit-diff-use-overlays nil)
+ '(org-agenda-files (quote ("~/Dropbox/notes/general/diary.org")))
+ '(package-selected-packages
+   (quote
+    (wgrep smex ivy-hydra flyspell-correct-ivy counsel-projectile counsel swiper ivy powerline spinner alert log4e markdown-mode hydra request git-gutter package-lint flycheck magit magit-popup iedit anzu diminish autothemer bind-key packed auctex anaconda-mode avy auto-complete company highlight smartparens bind-map evil undo-tree flyspell-correct git-commit with-editor helm helm-core popup async yasnippet projectile f dash s winum unfill madhat2r-theme fuzzy csv-mode web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc company-tern dash-functional tern coffee-mode web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode company-web web-completion-data auctex-latexmk zonokai-theme zenburn-theme zen-and-art-theme yapfify xterm-color ws-butler wolfram-mode window-numbering which-key volatile-highlights vi-tilde-fringe uuidgen use-package underwater-theme ujelly-theme twilight-theme twilight-bright-theme twilight-anti-bright-theme tronesque-theme toxi-theme toc-org thrift tao-theme tangotango-theme tango-plus-theme tango-2-theme sunny-day-theme sublime-themes subatomic256-theme subatomic-theme stan-mode spacemacs-theme spaceline spacegray-theme soothe-theme solarized-theme soft-stone-theme soft-morning-theme soft-charcoal-theme smyx-theme smeargle shell-pop seti-theme scad-mode reverse-theme restart-emacs rainbow-delimiters railscasts-theme quelpa qml-mode pyvenv pytest pyenv-mode py-isort purple-haze-theme professional-theme popwin planet-theme pip-requirements phoenix-dark-pink-theme phoenix-dark-mono-theme persp-mode pcre2el pastels-on-dark-theme paradox orgit organic-green-theme org-projectile org-present org-pomodoro org-plus-contrib org-download org-bullets open-junk-file omtose-phellack-theme oldlace-theme occidental-theme obsidian-theme noctilux-theme niflheim-theme neotree naquadah-theme mwim mustang-theme multi-term move-text monokai-theme monochrome-theme molokai-theme moe-theme mmm-mode minimal-theme matlab-mode material-theme markdown-toc majapahit-theme magit-gitflow macrostep lush-theme lorem-ipsum live-py-mode linum-relative link-hint light-soap-theme julia-mode jbeans-theme jazz-theme ir-black-theme inkpot-theme info+ indent-guide ido-vertical-mode ibuffer-projectile hy-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt heroku-theme hemisu-theme help-fns+ helm-themes helm-swoop helm-pydoc helm-projectile helm-mode-manager helm-make helm-gtags helm-gitignore helm-flycheck helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag hc-zenburn-theme gruvbox-theme gruber-darker-theme grandshell-theme gotham-theme google-translate golden-ratio gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gh-md ggtags gandalf-theme flyspell-correct-helm flycheck-pos-tip flycheck-package flx-ido flatui-theme flatland-theme firebelly-theme fill-column-indicator farmhouse-theme fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu espresso-theme eshell-z eshell-prompt-extras esh-help elisp-slime-nav dumb-jump dracula-theme django-theme diff-hl define-word darktooth-theme darkokai-theme darkmine-theme darkburn-theme dakrone-theme cython-mode cyberpunk-theme company-statistics company-auctex company-anaconda column-enforce-mode color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized clues-theme clean-aindent-mode cherry-blossom-theme busybee-theme bubbleberry-theme birds-of-paradise-plus-theme badwolf-theme auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile arduino-mode apropospriate-theme anti-zenburn-theme ample-zen-theme ample-theme alect-themes aggressive-indent afternoon-theme adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell)))
  '(pos-tip-background-color "#A6E22E")
  '(pos-tip-foreground-color "#272822")
  '(send-mail-function (quote mailclient-send-it))
@@ -418,6 +439,4 @@ you should place your code here."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:background nil))))
- '(company-tooltip-common ((t (:inherit company-tooltip :weight bold :underline nil))))
- '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :weight bold :underline nil)))))
+ '(default ((t (:background nil)))))
