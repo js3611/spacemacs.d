@@ -366,6 +366,17 @@ you should place your code here."
   (add-hook 'TeX-mode-hook '(lambda () (setq TeX-command-default "latexmk")))
   (add-to-list 'exec-path "/Library/TeX/texbin/")
 
+  ;; company-mode: For auto completion, 
+  ;; - remove those non-ANSII candidates.
+  ;; - remove any completion containing numbers.
+  ;; - remove any candidate which is longer than 15 in org-mode.
+  (push (apply-partially #'cl-remove-if
+                         (lambda (c)
+                           (or (string-match-p "[^\x00-\x7F]+" c)
+                               (string-match-p "[0-9]+" c)
+                               (if (equal major-mode "org")
+                                   (>= (length c) 15)))))
+        company-transformers)
 
   )
 
